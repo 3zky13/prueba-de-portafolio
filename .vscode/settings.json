@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["GLSL", "INICIALIZACIÓN", "PARTICULAS"]
+  "cSpell.words": [
+    "fract",
+    "GLSL",
+    "INICIALIZACIÓN",
+    "mediump",
+    "PARTICULAS",
+    "SECCIONALES"
+  ]
 }

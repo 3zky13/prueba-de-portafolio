@@ -48,13 +48,13 @@ const vertexSource = `
 `;
 
 // 🌈 Fragment shader reactivo
-// Reemplazar el fragment shader existente
 const fragmentSource = `
   precision mediump float;
   uniform vec2 u_resolution;
   uniform float u_time;
   uniform vec2 u_mouse;
   uniform float u_scroll;
+  uniform float u_section;  // 0: inicio, 1: sobre-mi, 2: proyectos, 3: contacto
 
   // Función de ruido
   float noise(vec2 p) {
@@ -88,7 +88,7 @@ const fragmentSource = `
     float n = noise(st * 10.0 + u_time * 0.5);
     n = smoothstep(0.3, 0.7, n);
     
-    // Colores dinámicos con variación basada en posición y tiempo
+    // Colores base dinámicos
     vec3 color = vec3(
       0.2 + ripple * 0.4 + st.x * 0.1, 
       0.3 + wave * 0.3 + st.y * 0.2, 
@@ -100,11 +100,28 @@ const fragmentSource = `
                  cos(u_time * 1.7 + st.y * 12.0) * 0.1;
     color += vec3(glow * 0.5, glow * 0.3, glow * 0.7);
     
-    // Ajuste final de color para ambos modos
-    if (gl_FragCoord.x < u_resolution.x * 0.5) {
+    // Efectos por sección
+    if (u_section == 1.0) { // Sobre mí
+      color.r *= 0.8;
+      color.g *= 1.2;
+      color.b *= 0.9;
+      // Añadir patron de puntos
+      float dots = step(0.9, sin(st.x * 50.0 + u_time) * sin(st.y * 50.0 + u_time));
+      color += dots * 0.3;
+    } else if (u_section == 2.0) { // Proyectos
       color.r *= 1.2;
-    } else {
+      color.g *= 0.8;
+      color.b *= 0.8;
+      // Añadir lineas diagonales
+      float lines = step(0.7, mod(st.x + st.y + u_time * 0.1, 0.2));
+      color += lines * 0.2;
+    } else if (u_section == 3.0) { // Contacto
+      color.r *= 0.9;
+      color.g *= 0.9;
       color.b *= 1.2;
+      // Añadir cuadrícula
+      float grid = step(0.98, mod(st.x, 0.1)) + step(0.98, mod(st.y, 0.1));
+      color += grid * 0.4;
     }
     
     gl_FragColor = vec4(color, 1.0);
@@ -121,6 +138,8 @@ const resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution')
 const timeUniformLocation = gl.getUniformLocation(program, 'u_time');
 const mouseUniformLocation = gl.getUniformLocation(program, 'u_mouse');
 const scrollUniformLocation = gl.getUniformLocation(program, 'u_scroll');
+const sectionUniformLocation = gl.getUniformLocation(program, 'u_section');
+
 
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -154,6 +173,15 @@ document.addEventListener('scroll', () => {
 function render(time) {
   time *= 0.001;
 
+    // Detectar sección visible
+  let currentSection = 0; // 0: inicio por defecto
+  const sections = document.querySelectorAll('section');
+  sections.forEach((section, index) => {
+    if (section.classList.contains('active-section')) {
+      currentSection = index;
+    }
+  });
+
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.clear(gl.COLOR_BUFFER_BIT);
   gl.useProgram(program);
@@ -166,6 +194,7 @@ function render(time) {
   gl.uniform1f(timeUniformLocation, time);
   gl.uniform2f(mouseUniformLocation, mouse.x, mouse.y);
  gl.uniform1f(scrollUniformLocation, scrollY * 0.01);
+  gl.uniform1f(sectionUniformLocation, currentSection);
 
   gl.drawArrays(gl.TRIANGLES, 0, 6);
   requestAnimationFrame(render);

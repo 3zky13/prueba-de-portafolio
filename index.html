@@ -3,31 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prototipo Web Limpio</title>
+    <title>Portafolio Moderno | Carlos</title>
     <link rel="stylesheet" href="style/index.css" />
   </head>
   <body>
+    <!-- Cursor personalizado -->
+    <div id="custom-cursor"></div>
+
     <!-- Canvas para partículas -->
     <canvas id="particles-canvas"></canvas>
     <canvas id="shader-canvas"></canvas>
 
-
     <!-- Encabezado principal con navegación -->
     <header>
-      <h1>Mi Sitio Creativo</h1>
+      <h1 data-cursor-text="¡Hola!">Carlos Dev</h1>
       <nav>
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#sobre-mi">Sobre mí</a></li>
-          <li><a href="#proyectos">Proyectos</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#inicio" data-cursor-text="Inicio">Inicio</a></li>
+          <li><a href="#sobre-mi" data-cursor-text="Sobre mí">Sobre mí</a></li>
+          <li>
+            <a href="#proyectos" data-cursor-text="Proyectos">Proyectos</a>
+          </li>
+          <li><a href="#contacto" data-cursor-text="Contacto">Contacto</a></li>
         </ul>
       </nav>
-
       <button
         id="theme-toggle"
         class="btn btn-primary"
         data-tooltip="Cambiar tema"
+        data-cursor-text="Cambiar tema"
       >
         🌙 Modo Oscuro
       </button>
@@ -40,182 +44,215 @@
         <p>Este es un prototipo limpio y modular para un sitio web creativo.</p>
       </section>
 
-<section id="sobre-mi">
-  <h2>Sobre mí</h2>
-  
-  <div class="about-container">
-    <div class="avatar-container">
-      <!-- Avatar animado -->
-      <div class="avatar-animation">
-        <div class="avatar-circle"></div>
-        <div class="avatar-dots">
-          <div class="dot dot-1"></div>
-          <div class="dot dot-2"></div>
-          <div class="dot dot-3"></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="about-content">
-      <p class="intro">¡Hola! Soy Carlos, desarrollador frontend especializado en crear experiencias web interactivas y visualmente impactantes.</p>
-      
-      <div class="highlights">
-        <div class="highlight">
-          <span class="highlight-icon">💻</span>
-          <div>
-            <h3>Frontend</h3>
-            <p>React, Vue, WebGL y CSS avanzado</p>
-          </div>
-        </div>
-        <div class="highlight">
-          <span class="highlight-icon">🎨</span>
-          <div>
-            <h3>Diseño</h3>
-            <p>UI/UX, Animaciones, Shaders</p>
-          </div>
-        </div>
-        <div class="highlight">
-          <span class="highlight-icon">🚀</span>
-          <div>
-            <h3>Innovación</h3>
-            <p>Web3, Realidad Aumentada, IA</p>
-          </div>
-        </div>
-      </div>
-      
-      <button id="timeline-toggle" class="btn btn-primary">
-        Ver mi trayectoria
-      </button>
-    </div>
-  </div>
-  
-  <!-- Línea de tiempo (inicialmente oculta) -->
-  <div class="timeline-container hidden">
-    <div class="timeline">
-      <div class="timeline-event">
-        <div class="timeline-date">2018</div>
-        <div class="timeline-content">
-          <h3>Primeros pasos en programación</h3>
-          <p>Descubrí mi pasión por el desarrollo web mientras estudiaba ingeniería</p>
-        </div>
-      </div>
-      <div class="timeline-event">
-        <div class="timeline-date">2020</div>
-        <div class="timeline-content">
-          <h3>Primer trabajo como desarrollador</h3>
-          <p>Implementación de interfaces para startups tecnológicas</p>
-        </div>
-      </div>
-      <div class="timeline-event">
-        <div class="timeline-date">2022</div>
-        <div class="timeline-content">
-          <h3>Especialización en WebGL</h3>
-          <p>Desarrollo de experiencias 3D interactivas para el navegador</p>
-        </div>
-      </div>
-      <div class="timeline-event">
-        <div class="timeline-date">2024</div>
-        <div class="timeline-content">
-          <h3>Enfoque en UX avanzado</h3>
-          <p>Creación de interfaces con IA generativa y efectos visuales</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      <section id="sobre-mi">
+        <h2>Sobre mí</h2>
 
-<!-- Reemplazar la sección Proyectos existente -->
-<section id="proyectos">
-  <h2>Proyectos Destacados</h2>
-  
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">Todos</button>
-    <button class="filter-btn" data-filter="web">Web</button>
-    <button class="filter-btn" data-filter="mobile">Mobile</button>
-    <button class="filter-btn" data-filter="creative">Creative Coding</button>
-  </div>
-  
-  <div class="projects-grid">
-    <!-- Proyecto 1 -->
-    <div class="project-card" data-category="web creative">
-      <div class="preview-container">
-        <div class="project-preview" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
-          <div class="preview-overlay">
-            <div class="preview-content">
-              <h3>Explorador 3D</h3>
-              <p>Modelado interactivo en tiempo real</p>
+        <div class="about-container">
+          <div class="avatar-container">
+            <!-- Avatar animado -->
+            <div class="avatar-animation">
+              <div class="avatar-circle"></div>
+              <div class="avatar-dots">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-2"></div>
+                <div class="dot dot-3"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-content">
+            <p class="intro">
+              ¡Hola! Soy Carlos, desarrollador frontend especializado en crear
+              experiencias web interactivas y visualmente impactantes.
+            </p>
+
+            <div class="highlights">
+              <div class="highlight">
+                <span class="highlight-icon">💻</span>
+                <div>
+                  <h3>Frontend</h3>
+                  <p>React, Vue, WebGL y CSS avanzado</p>
+                </div>
+              </div>
+              <div class="highlight">
+                <span class="highlight-icon">🎨</span>
+                <div>
+                  <h3>Diseño</h3>
+                  <p>UI/UX, Animaciones, Shaders</p>
+                </div>
+              </div>
+              <div class="highlight">
+                <span class="highlight-icon">🚀</span>
+                <div>
+                  <h3>Innovación</h3>
+                  <p>Web3, Realidad Aumentada, IA</p>
+                </div>
+              </div>
+            </div>
+
+            <button id="timeline-toggle" class="btn btn-primary">
+              Ver mi trayectoria
+            </button>
+          </div>
+        </div>
+
+        <!-- Línea de tiempo (inicialmente oculta) -->
+        <div class="timeline-container hidden">
+          <div class="timeline">
+            <div class="timeline-event">
+              <div class="timeline-date">2018</div>
+              <div class="timeline-content">
+                <h3>Primeros pasos en programación</h3>
+                <p>
+                  Descubrí mi pasión por el desarrollo web mientras estudiaba
+                  ingeniería
+                </p>
+              </div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">2020</div>
+              <div class="timeline-content">
+                <h3>Primer trabajo como desarrollador</h3>
+                <p>Implementación de interfaces para startups tecnológicas</p>
+              </div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">2022</div>
+              <div class="timeline-content">
+                <h3>Especialización en WebGL</h3>
+                <p>
+                  Desarrollo de experiencias 3D interactivas para el navegador
+                </p>
+              </div>
+            </div>
+            <div class="timeline-event">
+              <div class="timeline-date">2024</div>
+              <div class="timeline-content">
+                <h3>Enfoque en UX avanzado</h3>
+                <p>
+                  Creación de interfaces con IA generativa y efectos visuales
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="tech-tags">
-          <span>React</span>
-          <span>Three.js</span>
-          <span>WebGL</span>
+      </section>
+
+      <!-- Reemplazar la sección Proyectos existente -->
+      <section id="proyectos">
+        <h2>Proyectos Destacados</h2>
+
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="web">Web</button>
+          <button class="filter-btn" data-filter="mobile">Mobile</button>
+          <button class="filter-btn" data-filter="creative">
+            Creative Coding
+          </button>
         </div>
-      </div>
-      <div class="project-info">
-        <h3>Explorador de Modelos 3D</h3>
-        <p>Una experiencia interactiva que permite explorar modelos 3D en el navegador con controles intuitivos y efectos visuales avanzados.</p>
-        <div class="project-actions">
-          <button class="btn btn-demo">Ver Demo</button>
-          <button class="btn btn-code">Código</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Proyecto 2 -->
-    <div class="project-card" data-category="mobile">
-      <div class="preview-container">
-        <div class="project-preview" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
-          <div class="preview-overlay">
-            <div class="preview-content">
-              <h3>App Fitness</h3>
-              <p>Seguimiento personalizado</p>
+
+        <div class="projects-grid">
+          <!-- Proyecto 1 -->
+          <div class="project-card" data-category="web creative">
+            <div class="preview-container">
+              <div
+                class="project-preview"
+                style="background: linear-gradient(135deg, #6a11cb, #2575fc)"
+              >
+                <div class="preview-overlay">
+                  <div class="preview-content">
+                    <h3>Explorador 3D</h3>
+                    <p>Modelado interactivo en tiempo real</p>
+                  </div>
+                </div>
+              </div>
+              <div class="tech-tags">
+                <span>React</span>
+                <span>Three.js</span>
+                <span>WebGL</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Explorador de Modelos 3D</h3>
+              <p>
+                Una experiencia interactiva que permite explorar modelos 3D en
+                el navegador con controles intuitivos y efectos visuales
+                avanzados.
+              </p>
+              <div class="project-actions">
+                <button class="btn btn-demo">Ver Demo</button>
+                <button class="btn btn-code">Código</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 2 -->
+          <div class="project-card" data-category="mobile">
+            <div class="preview-container">
+              <div
+                class="project-preview"
+                style="background: linear-gradient(135deg, #11998e, #38ef7d)"
+              >
+                <div class="preview-overlay">
+                  <div class="preview-content">
+                    <h3>App Fitness</h3>
+                    <p>Seguimiento personalizado</p>
+                  </div>
+                </div>
+              </div>
+              <div class="tech-tags">
+                <span>React Native</span>
+                <span>Firebase</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Aplicación de Fitness</h3>
+              <p>
+                Solución móvil para seguimiento de rutinas de ejercicio,
+                progreso personal y planes de nutrición con integración de
+                wearables.
+              </p>
+              <div class="project-actions">
+                <button class="btn btn-demo">Ver Demo</button>
+                <button class="btn btn-code">Código</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proyecto 3 -->
+          <div class="project-card" data-category="creative">
+            <div class="preview-container">
+              <div
+                class="project-preview"
+                style="background: linear-gradient(135deg, #ff416c, #ff4b2b)"
+              >
+                <div class="preview-overlay">
+                  <div class="preview-content">
+                    <h3>Generador de Arte</h3>
+                    <p>Creación algorítmica</p>
+                  </div>
+                </div>
+              </div>
+              <div class="tech-tags">
+                <span>GLSL</span>
+                <span>Canvas</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Generador de Arte Generativo</h3>
+              <p>
+                Herramienta creativa que genera arte abstracto mediante
+                algoritmos y shaders, con capacidad para exportar resultados en
+                alta resolución.
+              </p>
+              <div class="project-actions">
+                <button class="btn btn-demo">Ver Demo</button>
+                <button class="btn btn-code">Código</button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="tech-tags">
-          <span>React Native</span>
-          <span>Firebase</span>
-        </div>
-      </div>
-      <div class="project-info">
-        <h3>Aplicación de Fitness</h3>
-        <p>Solución móvil para seguimiento de rutinas de ejercicio, progreso personal y planes de nutrición con integración de wearables.</p>
-        <div class="project-actions">
-          <button class="btn btn-demo">Ver Demo</button>
-          <button class="btn btn-code">Código</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Proyecto 3 -->
-    <div class="project-card" data-category="creative">
-      <div class="preview-container">
-        <div class="project-preview" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);">
-          <div class="preview-overlay">
-            <div class="preview-content">
-              <h3>Generador de Arte</h3>
-              <p>Creación algorítmica</p>
-            </div>
-          </div>
-        </div>
-        <div class="tech-tags">
-          <span>GLSL</span>
-          <span>Canvas</span>
-        </div>
-      </div>
-      <div class="project-info">
-        <h3>Generador de Arte Generativo</h3>
-        <p>Herramienta creativa que genera arte abstracto mediante algoritmos y shaders, con capacidad para exportar resultados en alta resolución.</p>
-        <div class="project-actions">
-          <button class="btn btn-demo">Ver Demo</button>
-          <button class="btn btn-code">Código</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       <section id="contacto">
         <h2>Contacto</h2>
@@ -242,6 +279,9 @@
     <!-- Pie de página -->
     <footer>
       <p>&copy; 2025 Carlos. Todos los derechos reservados.</p>
+      <div class="mode-indicator">
+        <span id="performance-indicator">Cargando métricas...</span>
+      </div>
     </footer>
     <!-- Scripts -->
     <script src="js/main.js"></script>
