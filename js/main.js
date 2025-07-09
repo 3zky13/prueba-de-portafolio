@@ -128,3 +128,91 @@ function init() {
     applySavedTheme();
   }
 }
+
+// Agregar al final del archivo main.js
+
+// Timeline toggle functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const timelineToggle = document.getElementById('timeline-toggle');
+  const timelineContainer = document.querySelector('.timeline-container');
+  
+  if (timelineToggle && timelineContainer) {
+    timelineToggle.addEventListener('click', () => {
+      timelineContainer.classList.toggle('hidden');
+      timelineToggle.textContent = timelineContainer.classList.contains('hidden') 
+        ? 'Ver mi trayectoria' 
+        : 'Ocultar trayectoria';
+    });
+  }
+  
+  // Animación de entrada para elementos de la línea de tiempo
+  const timelineEvents = document.querySelectorAll('.timeline-event');
+  timelineEvents.forEach((event, index) => {
+    event.style.opacity = '0';
+    event.style.transform = 'translateX(-20px)';
+    event.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    
+    setTimeout(() => {
+      event.style.opacity = '1';
+      event.style.transform = 'translateX(0)';
+    }, 300 + index * 200);
+  });
+});
+
+// Agregar al final del archivo main.js
+
+// Project filtering functionality
+function initProjectFilters() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      
+      const filter = button.dataset.filter;
+      
+      // Filter projects
+      projectCards.forEach(card => {
+        if (filter === 'all') {
+          card.style.display = 'flex';
+          setTimeout(() => {
+            card.style.opacity = '1';
+          }, 50);
+        } else {
+          if (card.dataset.category.includes(filter)) {
+            card.style.display = 'flex';
+            setTimeout(() => {
+              card.style.opacity = '1';
+            }, 50);
+          } else {
+            card.style.opacity = '0';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 300);
+          }
+        }
+      });
+    });
+  });
+}
+
+// Add to the init function
+function init() {
+  const form = document.querySelector("form");
+  if (form) {
+    form.addEventListener("submit", validateForm);
+  }
+
+  const toggleBtn = document.getElementById("theme-toggle");
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", toggleDarkMode);
+    applySavedTheme();
+  }
+  // Initialize project filters
+  if (document.querySelector('#proyectos')) {
+    initProjectFilters();
+  }
+}
