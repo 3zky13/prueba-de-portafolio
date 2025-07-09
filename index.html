@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototipo Web Limpio</title>
+    <link rel="stylesheet" href="style/index.css" />
+  </head>
+  <body>
+    <!-- Canvas para partículas -->
+    <canvas id="particles-canvas"></canvas>
+    <canvas id="shader-canvas"></canvas>
+
+
+    <!-- Encabezado principal con navegación -->
+    <header>
+      <h1>Mi Sitio Creativo</h1>
+      <nav>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <button
+        id="theme-toggle"
+        class="btn btn-primary"
+        data-tooltip="Cambiar tema"
+      >
+        🌙 Modo Oscuro
+      </button>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+      <section id="inicio">
+        <h2>Bienvenido</h2>
+        <p>Este es un prototipo limpio y modular para un sitio web creativo.</p>
+      </section>
+
+      <section id="sobre-mi">
+        <h2>Sobre mí</h2>
+        <p>Aquí podrías contar tu historia, tus intereses o tu misión.</p>
+      </section>
+
+      <section id="proyectos">
+        <h2>Proyectos</h2>
+        <article class="card">
+          <h3>Proyecto 1</h3>
+          <p>Descripción breve del proyecto.</p>
+        </article>
+        <article class="card">
+          <h3>Proyecto 2</h3>
+          <p>Otra idea interesante que quieras mostrar.</p>
+        </article>
+      </section>
+
+      <section id="contacto">
+        <h2>Contacto</h2>
+
+        <div class="alert alert-info">
+          ¡Este formulario es solo un prototipo!
+        </div>
+
+        <form>
+          <input type="text" placeholder="Tu nombre" required />
+          <input type="email" placeholder="Tu correo" required />
+          <textarea rows="4" placeholder="Tu mensaje"></textarea>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Barra lateral opcional -->
+    <aside>
+      <h2>Noticias</h2>
+      <p>Espacio para anuncios, enlaces o contenido adicional.</p>
+    </aside>
+
+    <!-- Pie de página -->
+    <footer>
+      <p>&copy; 2025 Carlos. Todos los derechos reservados.</p>
+    </footer>
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/shader.js"></script>
+  </body>
+</html>

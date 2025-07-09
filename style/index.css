@@ -1,0 +1,356 @@
+/* ================================
+   🌐 BASE: Reset, variables, tipografía
+   ================================ */
+
+:root {
+  --color-bg: #f9f9f9;
+  --color-text: #222;
+  --color-accent: #0077ff;
+  --color-muted: #666;
+  --font-main: "Segoe UI", sans-serif;
+  --max-width: 1200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: 1rem;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ================================
+   🧱 LAYOUT: Estructura general
+   ================================ */
+
+header,
+main,
+aside,
+footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--color-accent);
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--color-text);
+}
+
+/* ================================
+   📄 MAIN CONTENT
+   ================================ */
+
+main {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+}
+
+/* ================================
+   🧩 COMPONENTS: Botones, tarjetas, alertas
+   ================================ */
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #005fcc;
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.alert-info {
+  background-color: #e0f0ff;
+  color: #004080;
+  border-left: 4px solid #0077ff;
+}
+
+.alert-success {
+  background-color: #e6ffed;
+  color: #006b3c;
+  border-left: 4px solid #00b36b;
+}
+
+/* ================================
+   📬 FORMULARIO
+   ================================ */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input,
+textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+/* ================================
+   🧭 ASIDE: Barra lateral
+   ================================ */
+
+aside {
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* ================================
+   🔚 FOOTER
+   ================================ */
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  border-top: 1px solid #ddd;
+  margin-top: 3rem;
+  padding-top: 1rem;
+}
+
+/* ================================
+   📱 RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* ================================
+   🌗 MODO OSCURO
+   ================================ */
+
+body.dark-mode {
+  --color-bg: #121212;
+  --color-text: #f0f0f0;
+  --color-accent: #66ccff;
+  --color-muted: #aaa;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ================================
+   📌 BOTÓN FLOTANTE DE TEMA
+   ================================ */
+
+#theme-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 50px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background-color: var(--color-accent);
+  color: white;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#theme-toggle:hover {
+  background-color: #005fcc;
+  transform: scale(1.05);
+}
+
+/* Animación de entrada */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#theme-toggle {
+  animation: fadeInSlide 0.6s ease-out;
+}
+
+/* Animación al hacer clic */
+#theme-toggle.clicked {
+  animation: bounce 0.4s ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#theme-toggle::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+#theme-toggle:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================
+   🌈 FONDO ANIMADO CON GRADIENTE
+   ================================ */
+
+body {
+  background: linear-gradient(-45deg, #f9f9f9, #e0f7ff, #f0f0f0, #d0eaff);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode {
+  background: linear-gradient(-45deg, #121212, #1e1e1e, #222, #1a1a1a);
+  background-size: 400% 400%;
+  animation: gradientFlow 20s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ================================
+   🌌 CANVAS DE PARTÍCULAS
+   ================================ */
+
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#shader-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
