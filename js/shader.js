@@ -5,6 +5,11 @@
 const canvas = document.getElementById('shader-canvas');
 const gl = canvas.getContext('webgl');
 
+if (!gl) {
+  console.error('WebGL no está disponible en tu navegador');
+  return;
+}
+
 // 📏 Ajuste del canvas al tamaño de la ventana
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -74,7 +79,7 @@ const fragmentSource = `
     float wave = sin(mouseDist * 30.0 - u_time * 3.0) * 0.1;
     
     // Nuevo efecto de ondas concéntricas
-    float ripple = sin((mouseDist * 40.0) - u_time * 5.0 + scrollFactor) * 0.5;
+    float ripple = sin((mouseDist * 20.0) - u_time * 3.0 + scrollFactor) * 0.3;
     
     // Efecto de distorsión sutil
     vec2 distortion = vec2(
@@ -102,23 +107,23 @@ const fragmentSource = `
     
     // Efectos por sección
     if (u_section == 1.0) { // Sobre mí
-      color.r *= 0.8;
-      color.g *= 1.2;
-      color.b *= 0.9;
+      color.r *= 0.9;
+      color.g *= 1.1;
+      color.b *= 0.95;
       // Añadir patron de puntos
       float dots = step(0.9, sin(st.x * 50.0 + u_time) * sin(st.y * 50.0 + u_time));
       color += dots * 0.3;
     } else if (u_section == 2.0) { // Proyectos
-      color.r *= 1.2;
-      color.g *= 0.8;
-      color.b *= 0.8;
+      color.r *= 1.1;
+      color.g *= 0.9;
+      color.b *= 0.9;
       // Añadir lineas diagonales
       float lines = step(0.7, mod(st.x + st.y + u_time * 0.1, 0.2));
       color += lines * 0.2;
     } else if (u_section == 3.0) { // Contacto
-      color.r *= 0.9;
-      color.g *= 0.9;
-      color.b *= 1.2;
+      color.r *= 0.95;
+      color.g *= 0.95;
+      color.b *= 1.1;
       // Añadir cuadrícula
       float grid = step(0.98, mod(st.x, 0.1)) + step(0.98, mod(st.y, 0.1));
       color += grid * 0.4;
@@ -139,7 +144,6 @@ const timeUniformLocation = gl.getUniformLocation(program, 'u_time');
 const mouseUniformLocation = gl.getUniformLocation(program, 'u_mouse');
 const scrollUniformLocation = gl.getUniformLocation(program, 'u_scroll');
 const sectionUniformLocation = gl.getUniformLocation(program, 'u_section');
-
 
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -173,7 +177,7 @@ document.addEventListener('scroll', () => {
 function render(time) {
   time *= 0.001;
 
-    // Detectar sección visible
+  // Detectar sección visible
   let currentSection = 0; // 0: inicio por defecto
   const sections = document.querySelectorAll('section');
   sections.forEach((section, index) => {
@@ -193,7 +197,7 @@ function render(time) {
   gl.uniform2f(resolutionUniformLocation, canvas.width, canvas.height);
   gl.uniform1f(timeUniformLocation, time);
   gl.uniform2f(mouseUniformLocation, mouse.x, mouse.y);
- gl.uniform1f(scrollUniformLocation, scrollY * 0.01);
+  gl.uniform1f(scrollUniformLocation, scrollY * 0.01);
   gl.uniform1f(sectionUniformLocation, currentSection);
 
   gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -201,4 +205,3 @@ function render(time) {
 }
 
 requestAnimationFrame(render);
-

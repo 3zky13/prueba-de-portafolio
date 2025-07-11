@@ -7,7 +7,6 @@ window.particles = [];
 const canvas = document.getElementById("particles-canvas");
 const ctx = canvas.getContext("2d");
 
-let particles = [];
 const numParticles = 80;
 
 function resizeCanvas() {
@@ -38,25 +37,20 @@ class Particle {
     this.originalSpeedY = this.speedY;
   }
 
-  update() {
-    if (this.interactionTimer > 0) {
-      this.interactionTimer--;
-    } else {
-      // Volver gradualmente a la velocidad original
-      this.speedX += (this.originalSpeedX - this.speedX) * 0.05;
-      this.speedY += (this.originalSpeedY - this.speedY) * 0.05;
-    }
-
+   update() {
+    // Mover partículas normalmente
     this.x += this.speedX;
     this.y += this.speedY;
 
-    if (
-      this.x < 0 ||
-      this.x > canvas.width ||
-      this.y < 0 ||
-      this.y > canvas.height
-    ) {
-      this.reset();
+    // SOLUCIÓN: Rebotar en los bordes en lugar de reiniciar
+    if (this.x <= 0 || this.x >= canvas.width) {
+      this.speedX *= -1;
+      this.x = Math.max(0, Math.min(this.x, canvas.width));
+    }
+
+    if (this.y <= 0 || this.y >= canvas.height) {
+      this.speedY *= -1;
+      this.y = Math.max(0, Math.min(this.y, canvas.height));
     }
   }
 
@@ -71,15 +65,15 @@ class Particle {
 }
 
 function initParticles() {
-  particles = [];
+  window.particles = [];
   for (let i = 0; i < numParticles; i++) {
-    particles.push(new Particle());
+    window.particles.push(new Particle());
   }
 }
 
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach((p) => {
+  window.particles.forEach((p) => {
     p.update();
     p.draw();
   });

@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="style/index.css" />
   </head>
   <body>
-    <!-- Cursor personalizado -->
-    <div id="custom-cursor"></div>
-
     <!-- Canvas para partículas -->
     <canvas id="particles-canvas"></canvas>
     <canvas id="shader-canvas"></canvas>
@@ -39,9 +36,15 @@
 
     <!-- Contenido principal -->
     <main>
-      <section id="inicio">
+      <section id="inicio" class="animated-section">
         <h2>Bienvenido</h2>
         <p>Este es un prototipo limpio y modular para un sitio web creativo.</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
+          commodi nihil adipisci quod est cupiditate, quisquam quas fugiat,
+          nesciunt, eos aliquid! Laborum non soluta eius tenetur at, sint
+          consectetur maxime.
+        </p>
       </section>
 
       <section id="sobre-mi">
@@ -138,7 +141,6 @@
         </div>
       </section>
 
-      <!-- Reemplazar la sección Proyectos existente -->
       <section id="proyectos">
         <h2>Proyectos Destacados</h2>
 
@@ -284,8 +286,9 @@
       </div>
     </footer>
     <!-- Scripts -->
-    <script src="js/main.js"></script>
     <script src="js/particles.js"></script>
     <script src="js/shader.js"></script>
+    <script src="js/main.js"></script>
+    <!-- DEBE IR ÚLTIMO -->
   </body>
 </html>

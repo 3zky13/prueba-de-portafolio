@@ -48,23 +48,6 @@ function validateForm(event) {
 }
 
 // ================================
-// 🚀 INICIALIZACIÓN
-// ================================
-
-/**
- * Inicializa los eventos del sitio.
- */
-function init() {
-  const form = document.querySelector("form");
-  if (form) {
-    form.addEventListener("submit", validateForm);
-  }
-}
-
-// Ejecutar al cargar el DOM
-document.addEventListener("DOMContentLoaded", init);
-
-// ================================
 // 🌗 MODO OSCURO
 // ================================
 
@@ -113,35 +96,93 @@ function applySavedTheme() {
 }
 
 // ================================
-// 🚀 ACTUALIZAR INIT
+// 🌐 DETECCIÓN DE SECCIÓN ACTIVA
 // ================================
 
-function init() {
-  const form = document.querySelector("form");
-  if (form) {
-    form.addEventListener("submit", validateForm);
-  }
+function initSectionDetection() {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("nav a");
 
-  const toggleBtn = document.getElementById("theme-toggle");
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", toggleDarkMode);
-    applySavedTheme();
-  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // 1. RESET GENERAL: Limpia todas las clases primero
+          sections.forEach(s => {
+            s.classList.remove("active-section", "blurred");
+          });
+
+          // 2. MARCA SECCIÓN ACTUAL
+          entry.target.classList.add("active-section");
+
+          // 3. APLICA BLUR AL RESTO
+          sections.forEach(section => {
+            if (section !== entry.target) {
+              section.classList.add("blurred");
+            }
+          });
+
+          // 4. ACTUALIZA NAVEGACIÓN (opcional)
+          const targetId = entry.target.id;
+          navLinks.forEach((link) => {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href") === `#${targetId}`
+            );
+          });
+        }
+      });
+    },
+    {
+      threshold: 0.4,       // 40% de visibilidad requerida
+      rootMargin: "0px 0px -25% 0px" // 25% de margen inferior para activación temprana
+    }
+  );
+
+  // Inicia observación en todas las secciones
+  sections.forEach((section) => {
+    observer.observe(section);
+    
+    // Opcional: Fuerza estado inicial si hay hash en la URL
+    if (window.location.hash === `#${section.id}`) {
+      section.classList.add("active-section");
+    }
+  });
 }
 
-// Agregar al final del archivo main.js
+// ================================
+// 📊 INDICADOR DE RENDIMIENTO
+// ================================
 
-// Timeline toggle functionality
-document.addEventListener("DOMContentLoaded", () => {
+function initPerformanceIndicator() {
+  const indicator = document.getElementById("performance-indicator");
+  if (!indicator) return;
+
+  // Simular métricas
+  const simulatePerformance = () => {
+    const perf = Math.floor(Math.random() * 30) + 70;
+    const color = perf > 90 ? "#00cc66" : perf > 80 ? "#ffcc00" : "#ff6666";
+
+    indicator.innerHTML = `Performance: <span style="color:${color}">${perf}/100</span>`;
+  };
+
+  // Actualizar cada 5 segundos
+  simulatePerformance();
+  setInterval(simulatePerformance, 5000);
+}
+
+// ================================
+// 🕰️ TIMELINE TOGGLE
+// ================================
+
+function initTimelineToggle() {
   const timelineToggle = document.getElementById("timeline-toggle");
   const timelineContainer = document.querySelector(".timeline-container");
 
   if (timelineToggle && timelineContainer) {
     timelineToggle.addEventListener("click", () => {
       timelineContainer.classList.toggle("hidden");
-      timelineToggle.textContent = timelineContainer.classList.contains(
-        "hidden"
-      )
+      timelineToggle.textContent = timelineContainer.classList.contains("hidden")
         ? "Ver mi trayectoria"
         : "Ocultar trayectoria";
     });
@@ -159,11 +200,12 @@ document.addEventListener("DOMContentLoaded", () => {
       event.style.transform = "translateX(0)";
     }, 300 + index * 200);
   });
-});
+}
 
-// Agregar al final del archivo main.js
+// ================================
+// 🧩 FILTROS DE PROYECTOS
+// ================================
 
-// Project filtering functionality
 function initProjectFilters() {
   const filterButtons = document.querySelectorAll(".filter-btn");
   const projectCards = document.querySelectorAll(".project-card");
@@ -201,174 +243,35 @@ function initProjectFilters() {
   });
 }
 
-// Add to the init function
+// ================================
+// 🚀 INICIALIZACIÓN PRINCIPAL
+// ================================
+
 function init() {
+  // Formulario
   const form = document.querySelector("form");
   if (form) {
     form.addEventListener("submit", validateForm);
   }
 
+  // Tema oscuro/claro
   const toggleBtn = document.getElementById("theme-toggle");
   if (toggleBtn) {
     toggleBtn.addEventListener("click", toggleDarkMode);
     applySavedTheme();
   }
-  // Initialize project filters
+
+  // Timeline
+  initTimelineToggle();
+
+  // Filtros de proyectos
   if (document.querySelector("#proyectos")) {
     initProjectFilters();
   }
-}
 
-// ================================
-// 🖱️ CURSOR INTELIGENTE
-// ================================
-
-// Variables globales para el cursor
-let cursor;
-let cursorText;
-let lastX = 0;
-let lastY = 0;
-let cursorSpeed = 0;
-
-function initCursor() {
-  cursor = document.getElementById("custom-cursor");
-  if (!cursor) return;
-
-  // Crear elemento de texto para el cursor
-  cursorText = document.createElement("div");
-  cursorText.className = "cursor-text";
-  cursor.appendChild(cursorText);
-
-  // Mover cursor con el mouse
-  document.addEventListener("mousemove", (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-
-    // Calcular velocidad del cursor
-    const deltaX = x - lastX;
-    const deltaY = y - lastY;
-    cursorSpeed = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-    cursor.style.transform = `translate(${x}px, ${y}px)`;
-    lastX = x;
-    lastY = y;
-
-    // Interacción con partículas
-    if (typeof particles !== "undefined") {
-      particles.forEach((p) => {
-        const dx = p.x - x;
-        const dy = p.y - y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 150) {
-          // Repeler las partículas
-          p.speedX += dx * 0.0005 * (cursorSpeed / 10);
-          p.speedY += dy * 0.0005 * (cursorSpeed / 10);
-        }
-      });
-    }
-  });
-
-  // Cambiar forma en elementos interactivos
-  document.querySelectorAll("a, button, .project-card, .btn").forEach((el) => {
-    el.addEventListener("mouseenter", () => {
-      cursor.classList.add("hovering");
-
-      // Texto personalizado si está definido
-      const text = el.getAttribute("data-cursor-text");
-      if (text) {
-        cursor.classList.add("text-mode");
-        cursorText.textContent = text;
-      }
-
-      // Clase adicional para elementos creativos
-      if (
-        el.classList.contains("project-card") ||
-        el.classList.contains("btn-demo")
-      ) {
-        cursor.classList.add("creative");
-      }
-    });
-
-    el.addEventListener("mouseleave", () => {
-      cursor.classList.remove("hovering", "text-mode", "creative");
-      cursorText.textContent = "";
-    });
-  });
-
-  // Ocultar cursor original
-  document.body.style.cursor = "none";
-}
-
-//🌐 DETECCIÓN DE SECCIÓN ACTIVA
-
-function initSectionDetection() {
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll("nav a");
-
-  // Observador de intersección para secciones
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Actualizar clase activa
-          sections.forEach((section) =>
-            section.classList.remove("active-section")
-          );
-          entry.target.classList.add("active-section");
-
-          // Actualizar navegación
-          const targetId = entry.target.id;
-          navLinks.forEach((link) => {
-            link.classList.toggle(
-              "active",
-              link.getAttribute("href") === `#${targetId}`
-            );
-          });
-        }
-      });
-    },
-    {
-      threshold: 0.4,
-      rootMargin: "0px 0px -50% 0px",
-    }
-  );
-
-  // Observar cada sección
-  sections.forEach((section) => observer.observe(section));
-}
-
-// 📊 INDICADOR DE RENDIMIENTO
-
-function initPerformanceIndicator() {
-  const indicator = document.getElementById("performance-indicator");
-  if (!indicator) return;
-
-  // Simular métricas (en un caso real, usarías la API de Lighthouse)
-  const simulatePerformance = () => {
-    const perf = Math.floor(Math.random() * 30) + 70;
-    const color = perf > 90 ? "#00cc66" : perf > 80 ? "#ffcc00" : "#ff6666";
-
-    indicator.innerHTML = `Performance: <span style="color:${color}">${perf}/100</span>`;
-  };
-
-  // Actualizar cada 5 segundos (solo para demostración)
-  simulatePerformance();
-  setInterval(simulatePerformance, 5000);
-}
-
-// 🚀 ACTUALIZAR FUNCIÓN INIT
-
-function init() {
-  // Funciones existentes...
-
-  // Inicializar nuevas funcionalidades
-  initCursor();
+  // Funcionalidades avanzadas
   initSectionDetection();
   initPerformanceIndicator();
-
-  // Aplicar tema guardado
-  applySavedTheme();
 }
 
 // Ejecutar al cargar el DOM
